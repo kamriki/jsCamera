@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="webcam.min.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div ng-app="myapp" ng-controller="mainController">
+        <div class="alert alert-error ng-scope" ng-show="webcamError">
+    <span>Webcam could not be started. Did you give access to it?</span>
+    </div>
+        <webcam channel="channel" 
+            on-streaming="onSuccess()" 
+            on-error="onError(err)" 
+            on-stream="onStream(stream)"></webcam>
+        <button ng-click="makeSnapshot()">take picture</button>
+        <canvas id="snapshot" width="300" height="300"></canvas>
+    </div>
+</body>
+</html>
