@@ -4,15 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="webcam.min.js"></script>
-    <script src="angular.min.js"></script>
-    <script src="app.js"></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="style/bootstrap.min.css"/>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/webcam.min.js"></script>
+    <script src="scripts/app.js"></script>
+    <title>Eatmarna Tester</title>
+    <style>
+        body { background-color: whitesmoke; }
+        footer { padding-left: 10px; }
+        .text-center { text-align: center; }
+        ul { line-height: 0.8rem; }
+        .success { color: green; }
+        .warn { color: crimson; }
+        .card { margin: 10px; }
+        .card-body > div > button { margin: 5px; }
+        .list-group { margin-bottom: 10px; }
+        .callout { position: relative; }
+        .callout::before { 
+            content: "";    
+            position: absolute;
+            top: -0.4em; left: 1em;
+            padding: .35em;
+            background: inherit;
+            border: inherit;
+            border-right: 0;
+            border-bottom: 0;
+            transform: rotate(45deg);
+            }
+    </style>
 </head>
-<body>
+<body ng-controller="mainController">
+    <header>
+        <nav class="navbar navbar-dark bg-dark">        
+            <div>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Coffee Update</a>
+                </div>
+            </div>
+        </nav>
+    </header>
     <div ng-app="myapp" ng-controller="mainController">
-        <div class="alert alert-error ng-scope" ng-show="webcamError">
-    <span>Webcam could not be started. Did you give access to it?</span>
+      <div class="alert alert-error ng-scope" ng-show="webcamError">
+      <span>Webcam could not be started. Did you give access to it?</span>
     </div>
         <webcam channel="channel" 
             on-streaming="onSuccess()" 
@@ -21,5 +54,6 @@
         <button ng-click="makeSnapshot()">take picture</button>
         <canvas id="snapshot" width="300" height="300"></canvas>
     </div>
+    <footer><hr><p>&copy; 2021 Digital Platform</p></footer>    
 </body>
 </html>

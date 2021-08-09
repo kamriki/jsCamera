@@ -1,4 +1,5 @@
-angular.module('myapp', ['webcam'])
+angular
+.module('myApp', ['webcam'])
 .controller('mainController', function($scope) {
     var _video = null,
         patData = null;
