@@ -1,11 +1,11 @@
 angular
 .module('myApp', ['webcam'])
-.controller('mainController', function($scope) {
+.controller('mainController', function($scope, $http) {
     var _video = null,
         patData = null;
 
     $scope.patOpts = {x: 0, y: 0, w: 25, h: 25};
-
+    
     // Setup a channel to receive a video property
     // with a reference to the video element
     // See the HTML binding in main.html
@@ -48,10 +48,27 @@ angular
 
             sendSnapshotToServer(patCanvas.toDataURL());
 
+            
+
+
             patData = idata;
         }
     };
     
+
+    function tick() {
+        //get the mins of the current time
+        var mins = new Date().getMinutes();
+        var sec = new Date().getSeconds();
+        if ((mins == "00" || mins == "15" || mins == "30" || mins == "45") && sec == "00") {
+            console.log('send photo');
+            $scope.makeSnapshot();
+        }
+        console.log('Tick ' + mins);
+      }
+      
+    setInterval(tick, 1000);
+
     /**
      * Redirect the browser to the URL given.
      * Used to download the image by passing a dataURL string
@@ -77,5 +94,16 @@ angular
      */
     var sendSnapshotToServer = function sendSnapshotToServer(imgBase64) {
         $scope.snapshotData = imgBase64;
+        console.log($scope.snapshotData);
+
+        $http(
+            { 
+                method: 'POST', data: 'R=updCoffeePhoto&photoCoffee=' + $scope.snapshotData, 
+                url: 'https://apis.k-amriki.net/projects/expences/default.aspx', 
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+            })
+        .then(function(response) {
+            console.log(response);
+        });
     };
 });
