@@ -46,10 +46,14 @@ angular
             var idata = getVideoData($scope.patOpts.x, $scope.patOpts.y, $scope.patOpts.w, $scope.patOpts.h);
             ctxPat.putImageData(idata, 0, 0);
 
+            var dataURL = patCanvas.toDataURL('image/jpeg');
             //sendSnapshotToServer(patCanvas.toDataURL().replace('\n',''));
             // sendSnapshotToServer(patCanvas.toDataURL().toString('base64'));
-            sendSnapshotToServer(patCanvas.toDataURL('image/png'));
+            // sendSnapshotToServer(atob(patCanvas.toDataURL("image/png")));
+            // sendSnapshotToServer(patCanvas.toDataURL("image/png").replace(/^data:image\/(png|jpg);base64,/, ""));            
             // sendSnapshotToServer(patCanvas.toDataURL('image/jpeg'));
+            // sendSnapshotToServer(patCanvas.toDataURL("image/png"));
+            // sendSnapshotToServer(dataURL.replace(/^data:image\/\w+;base64,/, ""));
             patData = idata;
         }
     };
