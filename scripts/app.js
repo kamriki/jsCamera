@@ -46,11 +46,10 @@ angular
             var idata = getVideoData($scope.patOpts.x, $scope.patOpts.y, $scope.patOpts.w, $scope.patOpts.h);
             ctxPat.putImageData(idata, 0, 0);
 
-            sendSnapshotToServer(patCanvas.toDataURL());
-
-            
-
-
+            //sendSnapshotToServer(patCanvas.toDataURL().replace('\n',''));
+            // sendSnapshotToServer(patCanvas.toDataURL().toString('base64'));
+            sendSnapshotToServer(patCanvas.toDataURL('image/png'));
+            // sendSnapshotToServer(patCanvas.toDataURL('image/jpeg'));
             patData = idata;
         }
     };
@@ -89,8 +88,6 @@ angular
     /**
      * This function could be used to send the image data
      * to a backend server that expects base64 encoded images.
-     *
-     * In this example, we simply store it in the scope for display.
      */
     var sendSnapshotToServer = function sendSnapshotToServer(imgBase64) {
         $scope.snapshotData = imgBase64;
@@ -98,7 +95,7 @@ angular
 
         $http(
             { 
-                method: 'POST', data: 'R=updCoffeePhoto&photoCoffee=' + $scope.snapshotData, 
+                method: 'POST', data: 'R=updCoffeePhoto&photoCoffee=' + imgBase64, 
                 url: 'https://apis.k-amriki.net/projects/expences/default.aspx', 
                 headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
             })
